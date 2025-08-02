@@ -13,12 +13,15 @@ A Windows-first CLI tool for managing a local "Resource Database" (RDB) — a di
 
 ## Quick Start
 
-```powershell
+```bash
+# Build the CLI tool
+make build
+
 # Initialize a new RDB repository
 rdb init --layout tree --types "text,audio,texture,shader,mesh"
 
 # Add assets
-rdb add .\assets\1030002\ --type text --id 1030002 --name "DialogLine_Intro"
+rdb add ./assets/1030002/ --type text --id 1030002 --name "DialogLine_Intro"
 
 # Check status
 rdb status
@@ -32,17 +35,23 @@ rdb build
 
 ## Installation
 
-```powershell
+### From Source
+
+```bash
 # Clone the repository
 git clone <repository-url>
 cd RDB
 
 # Install dependencies
-pip install -r requirements.txt
+make deps
 
-# Install the CLI tool
-pip install -e .
+# Build the CLI tool
+make build
 ```
+
+### Prebuilt Binary
+
+Download the prebuilt binary for your platform from the releases page and place it in your `PATH`.
 
 ## Usage
 
@@ -53,25 +62,17 @@ pip install -e .
 - `rdb add` - Stage files for commit
 - `rdb commit` - Create a new commit
 - `rdb log` - Show commit history
-- `rdb diff` - Show changes between commits
-
-### Branching & Merging
-
-- `rdb branch` - Manage branches
-- `rdb checkout` - Switch branches
-- `rdb merge` - Merge branches
-
-### Packaging
-
+- `rdb list` - List asset types and folders
+- `rdb cd` - Change directory to asset folder
 - `rdb build` - Create `.rdbdata` package
-- `rdb unpack` - Extract `.rdbdata` package
 
-### Remote Operations
+### Additional Features
 
-- `rdb remote` - Manage remote repositories
-- `rdb push` - Push to remote
-- `rdb pull` - Pull from remote
-- `rdb clone` - Clone a repository
+- `rdb init --layout <layout>` - Specify repository layout (`tree` or `flat`)
+- `rdb add --type <type> --id <id>` - Specify asset type and ID when adding files
+- `rdb commit --amend` - Amend the previous commit
+- `rdb log --oneline` - Show abbreviated commit history
+- `rdb build --compression <method>` - Specify compression method (`store` or `deflate`)
 
 ## Directory Structure
 
@@ -93,6 +94,18 @@ pip install -e .
   .rdbignore                    # ignore rules
 ```
 
+## Makefile Targets
+
+- `make build` - Build the RDB CLI tool
+- `make build-all` - Build for multiple platforms
+- `make deps` - Install dependencies
+- `make test` - Run tests
+- `make test-coverage` - Run tests with coverage
+- `make clean` - Clean build artifacts
+- `make install` - Install the tool
+- `make run` - Run the tool
+- `make help` - Show help
+
 ## License
 
-MIT License 
+MIT License
